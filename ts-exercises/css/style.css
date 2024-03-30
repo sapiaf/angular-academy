@@ -1,0 +1,28 @@
+/* Nel foglio di CSS si possono indicare tag di elementi HTML, id, classi ed altro per influenzare lo stile della pagina html in cui viene referenziato il foglio di stile. */
+
+/* Con il selettore * si indicano tutti gli elementi HTML all'interno del documento
+    Ho forzato un "dark theme" alla pagina per la mia sanità mentale */
+* {
+  background-color: #171717;
+  color: #e6e6e6;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+/* Per indicare un identificativo si antepone il carattere # alla stringa dell'identificativo */
+#mainTitle {
+  text-align: center;
+}
+
+.btnDiv {
+  width: 100%;
+  text-align: center;
+}
+
+button {
+  background-color: #e6e6e6;
+  color: #171717;
+}
+
+.btnDiv > p {
+  color: #004173;
+}

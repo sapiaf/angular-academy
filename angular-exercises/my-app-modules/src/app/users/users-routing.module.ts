@@ -3,12 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AdminComponent } from './components/admin/admin.component';
 
-const routesUser: Routes = [
+const routesUsers: Routes = [
   { path: '', component: AdminComponent}
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routesUser)],
+  imports: [RouterModule.forChild(routesUsers)],
   exports: [RouterModule]
 })
-export class UserRoutingModule { }
+export class UsersRoutingModule { }

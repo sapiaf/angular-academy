@@ -1,7 +1,5 @@
 <h2>Products</h2>
 
-<!-- for (let i = 0; i < products.length; i++) 
-        product = products[i] -->
 <div *ngFor="let product of products">
   <h3>
     <a
@@ -11,7 +9,6 @@
     </a>
   </h3>
 
-  <!-- Truthy & Falsy | Template variable -->
   <p *ngIf="product.description; else noDescription">
     Description: {{ product.description }}
   </p>
@@ -28,11 +25,6 @@
     [productFiglio]="product"
     (notifyEvent)="onNotify($event)">
   </app-product-alerts>
-
-  <!-- Nuova versione di Angular ogni 6 mesi
-    Penultima versione (più stabile)
-    Google ultime 3 versioni
-    versione 15 -->
 
   <!-- v. 17 -->
   <!-- <p>

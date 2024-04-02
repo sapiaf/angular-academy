@@ -1,0 +1,5 @@
+<p *ngIf="productFiglio && productFiglio.price > 700">
+  <button type="button" (click)="notifyEvent.emit(productFiglio.name)">
+    Notify Me
+  </button>
+</p>

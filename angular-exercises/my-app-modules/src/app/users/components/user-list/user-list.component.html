@@ -1,6 +1,7 @@
 <h2>Students</h2>
 
 <div *ngFor="let student of students$ | async" class="user-item">
+  
   <button type="button" class="fancy-button"
     (click)="deleteStudent(student.id!)"
   >
@@ -8,9 +9,15 @@
       delete
     </span>
   </button>
+
+  <button type="button" class="fancy-button" (click)="goToEditStudent(student.id)">
+    <span class="material-symbols-outlined">
+      edit
+    </span>
+  </button>
   {{ student.name }} {{ student.surname }}, {{ student.age }} ({{ student.location?.country}})
 </div>
 
 <div style="margin-top: 1rem;">
-  <a class="button" routerLink="/users/new-user">Add Student</a>
+  <a class="button" routerLink="/users/form">Add Student</a>
 </div>

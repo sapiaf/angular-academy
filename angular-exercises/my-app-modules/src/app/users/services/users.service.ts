@@ -2,13 +2,12 @@ import { Injectable } from '@angular/core';
 import { UsersModule } from '../users.module';
 import { Student } from '../models/student';
 import { BehaviorSubject, Observable, map, of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: UsersModule
 })
 export class UsersService {
-
   apiUrl: string = "http://localhost:3000";
   // students$: BehaviorSubject<Array<Student>> = new BehaviorSubject<Array<Student>>([]);
 
@@ -18,10 +17,11 @@ export class UsersService {
 
   getStudents(): Observable<Array<Student>> {
     return this.http.get<Array<Student>>(`${this.apiUrl}/students`)
-      .pipe(map((students) => {
-        this.lastUsedId = +students[students.length - 1].id!;
+      .pipe(map((stu) => {
+        // Aggiorno ultimo id utilizzabile così da avere id pronto per futura POST
+        this.lastUsedId = +stu.reduce((max, student) => { return student.id > max.id ? student : max; }).id;
         // this.students$.next(students);
-        return students
+        return stu
       }));
   }
 
@@ -41,28 +41,39 @@ export class UsersService {
     return this.http.delete<Student>(`${this.apiUrl}/students/${id}`);
   }
 
-  updateStudent(stu: Partial<Student>) {
-    return this.http.patch(`${this.apiUrl}/students/${stu.id}`, stu)
+  updateStudent(id: string, student: Partial<Student>) {
+    return this.http.patch(`${this.apiUrl}/students/${id}`, student)
   }
+
+  getStudentById(id: string): Observable<Student> {
+    return this.http.get<Student>(`${this.apiUrl}/students/${id}`)
+      .pipe(map((stu) => {
+        return stu
+      }));
+  }
+
+  getStudentByLanguage(lang: string): Observable<Array<Student>> {
+    return this.http.get<Array<Student>>(`${this.apiUrl}/students`)
+      .pipe(map((students) => {
+        const ListStudentsSameLanguage: Array<Student> = []
+        students.forEach((s) => {
+          if (s.languages.includes(lang))
+            ListStudentsSameLanguage.push(s);
+        });
+        return ListStudentsSameLanguage;
+    }));
+  }
+
   /*
-  Protocollo HTTP / HTTPS
-    HyperText Transfer Protocol
-       Ipertesto (JSON, XML)
-       Trasferimento (Metodi)
-         Create   PUT
-         Read     GET
-         Update   POST
-         Delete   DELETE
-         URI (Uniform Resource Identifier)
-         Header HTTP
-       Protocollo (Regole / Linee guida)
-  REST (RESTful) API
-    Representional State Transfer
-      Stateless: Ogni chiamata è storia a sè
-  WebSocket (Streaming)
+   *  TODO | Esercizio.
+   *  Integrare tutte i "filtraggi" fatti nell'esercizio .ts come chiamate tramite parametri
+   */
 
-  REST vs SOAP (XML)
-
-  json-server db.json (Non relazionale)
-  */ 
+  getStudentOlderThan(age: string): Observable<Array<Student>> {
+    const options = { 
+      params: new HttpParams()
+        .set('age_gte', age)
+    };
+    return this.http.get<Array<Student>>(`${this.apiUrl}/students`, options)
+  }
 }

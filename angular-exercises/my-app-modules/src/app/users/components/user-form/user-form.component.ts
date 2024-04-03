@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UsersService } from '../../services/users.service';
 import { Locations, Student } from '../../models/student';
 import { take } from 'rxjs';
@@ -38,14 +38,14 @@ export class UserFormComponent implements OnInit, OnDestroy {
     } else {
       this.showForm = true;
       this.buildForm();
-    }    
+    }
   }
 
   buildForm(student?: Student): void {
-    this.name = new FormControl(student ? this.student?.name : '');
-    this.surname = new FormControl(student ? this.student?.surname : '');
-    this.age = new FormControl(student ? this.student?.age : '');
-    this.country = new FormControl(student ? this.student?.location?.country : '');
+    this.name = new FormControl(student ? this.student?.name : '', Validators.required);
+    this.surname = new FormControl(student ? this.student?.surname : '', Validators.required);
+    this.age = new FormControl(student ? this.student?.age : '', [Validators.required, Validators.min(1)]);
+    this.country = new FormControl(student ? this.student?.location?.country : '', Validators.required);
 
     this.userForm = this.fb.group({
       name: this.name,

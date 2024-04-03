@@ -27,7 +27,7 @@
       Reset
     </button>
     
-    <button class="button" type="submit">
+    <button class="button" type="submit" [disabled]="userForm.invalid">
       {{ student ? 'Edit' : 'Add' }}
     </button>
   </form>

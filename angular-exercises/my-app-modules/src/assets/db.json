@@ -1,6 +1,7 @@
 {
   "students": [
     {
+      "id": 1,
       "name": "Mario",
       "surname": "Rossi",
       "location": { "city": "Torino", "country": "Italia" },
@@ -9,6 +10,7 @@
       "languages": ["italiano", "inglese"]
     },
     {
+      "id": 2,
       "name": "Maria",
       "surname": "Bianchi",
       "location": { "city": "Varsavia", "country": "Polonia" },
@@ -17,6 +19,7 @@
       "languages": ["italiano", "inglese", "polacco"]
     },
     {
+      "id": 3,
       "name": "Gianni",
       "surname": "Verdi",
       "location": { "city": "Atene", "country": "Grecia" },
@@ -25,6 +28,7 @@
       "languages": ["greco", "inglese"]
     },
     {
+      "id": 4,
       "name": "Paola",
       "surname": "Chiara",
       "location": { "city": "Milano", "country": "Italia" },
@@ -33,6 +37,7 @@
       "languages": ["italiano", "francese", "tedesco"]
     },
     {
+      "id": 5,
       "name": "Luigi",
       "surname": "Azzurro",
       "location": { "city": "New York City", "country": "Stati Uniti d'America" },

@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { UsersService } from './services/users.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { UsersService } from './services/users.service';
   imports: [
     CommonModule,
     UsersRoutingModule,
+    HttpClientModule,
     ReactiveFormsModule
   ],
   providers: [UsersService]

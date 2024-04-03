@@ -1,49 +1,97 @@
 {
   "students": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Mario",
       "surname": "Rossi",
-      "location": { "city": "Torino", "country": "Italia" },
+      "location": {
+        "city": "Torino",
+        "country": "Italia"
+      },
       "age": 18,
-      "hobby": ["nuoto", "ippica"],
-      "languages": ["italiano", "inglese"]
+      "hobby": [
+        "nuoto",
+        "ippica"
+      ],
+      "languages": [
+        "italiano",
+        "inglese"
+      ]
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Maria",
       "surname": "Bianchi",
-      "location": { "city": "Varsavia", "country": "Polonia" },
+      "location": {
+        "city": "Varsavia",
+        "country": "Polonia"
+      },
       "age": 28,
-      "hobby": ["corsa", "ippica"],
-      "languages": ["italiano", "inglese", "polacco"]
+      "hobby": [
+        "corsa",
+        "ippica"
+      ],
+      "languages": [
+        "italiano",
+        "inglese",
+        "polacco"
+      ]
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Gianni",
       "surname": "Verdi",
-      "location": { "city": "Atene", "country": "Grecia" },
+      "location": {
+        "city": "Atene",
+        "country": "Grecia"
+      },
       "age": 41,
-      "hobby": ["cucina", "nuoto"],
-      "languages": ["greco", "inglese"]
+      "hobby": [
+        "cucina",
+        "nuoto"
+      ],
+      "languages": [
+        "greco",
+        "inglese"
+      ]
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Paola",
       "surname": "Chiara",
-      "location": { "city": "Milano", "country": "Italia" },
+      "location": {
+        "city": "Milano",
+        "country": "Italia"
+      },
       "age": 31,
-      "hobby": ["film", "musica", "corsa"],
-      "languages": ["italiano", "francese", "tedesco"]
+      "hobby": [
+        "film",
+        "musica",
+        "corsa"
+      ],
+      "languages": [
+        "italiano",
+        "francese",
+        "tedesco"
+      ]
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Luigi",
       "surname": "Azzurro",
-      "location": { "city": "New York City", "country": "Stati Uniti d'America" },
+      "location": {
+        "city": "New York City",
+        "country": "Stati Uniti d'America"
+      },
       "age": 41,
-      "hobby": ["cucina", "nuoto"],
-      "languages": ["greco", "inglese"]
+      "hobby": [
+        "cucina",
+        "nuoto"
+      ],
+      "languages": [
+        "greco",
+        "inglese"
+      ]
     }
   ]
 }

@@ -1,1 +1,11 @@
-<p>user-list works!</p>
+<button type="button" (click)="addStudent()">
+  Add Student
+</button>
+
+<button type="button" (click)="deleteStudent()">
+  Delete Last Student
+</button>
+
+<div *ngFor="let student of students$ | async">
+  <p>{{ student.name }} {{ student.surname }}, {{ student.age }} ({{ student.location.country}})</p>
+</div>

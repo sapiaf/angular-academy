@@ -7,12 +7,14 @@ import { UserListComponent } from './components/user-list/user-list.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { UsersService } from './services/users.service';
 import { HttpClientModule } from '@angular/common/http';
+import { AddUserFormComponent } from './components/add-user-form/add-user-form.component';
 
 
 @NgModule({
   declarations: [
     UserListComponent,
-    AdminComponent
+    AdminComponent,
+    AddUserFormComponent
   ],
   imports: [
     CommonModule,

@@ -1,22 +1,29 @@
-export type Locations = {
+export class Locations {
   city: string;
   country: string;
+
+  constructor(loc: Partial<Locations>) {
+    this.city = loc.city ? loc.city : '';
+    this.country = loc.country ? loc.country : '';
+  }
 }
 
 export class Student {
+  id: string;
   name: string;
   surname: string;
-  location: Locations;
-  age: number;
+  location: Locations | null;
+  age: number | null;
   hobby: Array<string>;
   languages: Array<string>;
 
-  constructor(stu: Student) {
-    this.name = stu.name;
-    this.surname = stu.surname;
-    this.location = stu.location;
-    this.age = stu.age;
-    this.hobby = stu.hobby;
-    this.languages = stu.languages;
+  constructor(stu: Partial<Student>) {
+    this.id = stu.id ? stu.id : '0';
+    this.name = stu.name ? stu.name : '';
+    this.surname = stu.surname ? stu.surname : '';
+    this.location = stu.location ? new Locations(stu.location) : null;
+    this.age = stu.age ? stu.age : null;
+    this.hobby = stu.hobby ? stu.hobby : [];
+    this.languages = stu.languages ? stu.languages : [];
   }
 }

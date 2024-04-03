@@ -1,11 +1,16 @@
-<button type="button" (click)="addStudent()">
-  Add Student
-</button>
+<h2>Students</h2>
 
-<button type="button" (click)="deleteStudent()">
-  Delete Last Student
-</button>
+<div *ngFor="let student of students$ | async" class="user-item">
+  <button type="button" class="fancy-button"
+    (click)="deleteStudent(student.id!)"
+  >
+    <span class="material-symbols-outlined">
+      delete
+    </span>
+  </button>
+  {{ student.name }} {{ student.surname }}, {{ student.age }} ({{ student.location?.country}})
+</div>
 
-<div *ngFor="let student of students$ | async">
-  <p>{{ student.name }} {{ student.surname }}, {{ student.age }} ({{ student.location.country}})</p>
+<div style="margin-top: 1rem;">
+  <a class="button" routerLink="/users/new-user">Add Student</a>
 </div>

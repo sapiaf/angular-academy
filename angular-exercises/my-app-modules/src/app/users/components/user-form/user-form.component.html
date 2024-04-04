@@ -1,25 +1,23 @@
-<h2>{{ student ? 'Edit' : 'Add' }} Student</h2>
+<h2>{{ student ? "Edit" : "Add" }} Student</h2>
 
 <ng-container *ngIf="showForm">
   <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-  
     <div>
       <label for="name">Name</label>
       <input id="name" type="text" formControlName="name" />
     </div>
-  
+
     <div>
       <label for="surname">Surname</label>
       <input id="surname" type="text" formControlName="surname" />
     </div>
-  
+
     <div>
       <label for="age">Age</label>
       <input id="age" type="number" formControlName="age" />
     </div>
-  
-    <div formGroupName="location">
 
+    <div formGroupName="location">
       <h3>Location</h3>
 
       <label for="city">City</label>
@@ -27,55 +25,43 @@
 
       <label for="country">Country</label>
       <input id="country" type="text" formControlName="country" />
-
     </div>
 
     <div formArrayName="hobbies">
-
       <h3>Hobbies</h3>
 
       <button type="button" (click)="addHobby()">+ Hobby</button>
 
       <div *ngFor="let hobby of hobbies.controls; let i = index">
-
-        <label [for]="'hobby-' + i">
-          <button type="button" class="fancy-button" (click)="deleteHobby(i)">
-            <span class="material-symbols-outlined">
-              delete
-            </span>
-          </button>
-          Hobby
-        </label>
-        <input id="hobby-{{ i }}" type="text" [formControlName]="i">
-
+        <label [for]="'hobby-' + i">{{ hobby.value || "Hobby" }}</label>
+        <input id="hobby-{{ i }}" type="text" [formControlName]="i" />
+        <button type="button" class="fancy-button" (click)="deleteHobby(i)">
+          <span class="material-symbols-outlined"> delete </span>
+        </button>
       </div>
-
     </div>
 
     <div formArrayName="languages">
-
       <h3>Languages</h3>
-
-      <button type="button">+ Language</button>
-
-      <div *ngFor="let language of languages.controls; let i = index" [formGroupName]="i">
-
+      <button type="button" (click)="addLanguage()">+ Language</button>
+      <div
+        *ngFor="let languageGroup of languages.controls; let i = index"
+        [formGroupName]="i"
+      >
         <label for="language-{{ i }}">Language</label>
-        <input id="language-{{ i }}" type="text" formControlName="language">
-
+        <input id="language-{{ i }}" type="text" formControlName="language" />
         <label for="level-{{ i }}">Level</label>
-        <input id="level-{{ i }}" type="text" formControlName="level">
-
+        <input id="level-{{ i }}" type="text" formControlName="level" />
+        <button type="button" class="fancy-button" (click)="deleteLanguage(i)">
+          <span class="material-symbols-outlined"> delete </span>
+        </button>
       </div>
-
     </div>
-  
-    <button class="button" type="button" (click)="resetForm()">
-      Reset
-    </button>
-    
+
+    <button class="button" type="button" (click)="resetForm()">Reset</button>
+
     <button class="button" type="submit" [disabled]="userForm.invalid">
-      {{ student ? 'Edit' : 'Add' }}
+      {{ student ? "Edit" : "Add" }}
     </button>
 
     <button class="button" type="button" (click)="checkFormStatus()">

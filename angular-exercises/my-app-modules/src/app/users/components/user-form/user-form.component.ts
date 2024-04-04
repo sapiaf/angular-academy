@@ -1,13 +1,20 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { UsersService } from '../../services/users.service';
-import { Locations, Student } from '../../models/student';
+import { LanguageExpertise, Locations, Student } from '../../models/student';
 import { take } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-form',
   templateUrl: './user-form.component.html',
-  styleUrl: './user-form.component.scss'
+  styleUrl: './user-form.component.scss',
 })
 export class UserFormComponent implements OnInit, OnDestroy {
   showForm: boolean = false;
@@ -26,20 +33,23 @@ export class UserFormComponent implements OnInit, OnDestroy {
   languages!: FormArray;
 
   constructor(
-    private fb:FormBuilder,
-    private usersService: UsersService
+    private fb: FormBuilder,
+    private usersService: UsersService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.studentId = localStorage.getItem('studentId');
     if (this.studentId) {
-      this.usersService.getStudentById(this.studentId).pipe(take(1))
+      this.usersService
+        .getStudentById(this.studentId)
+        .pipe(take(1))
         .subscribe((student) => {
           this.student = new Student(student);
           console.log(this.student);
           this.buildForm();
           this.showForm = true;
-        })
+        });
     } else {
       this.buildForm();
       this.showForm = true;
@@ -56,14 +66,16 @@ export class UserFormComponent implements OnInit, OnDestroy {
 
     this.hobbies = new FormArray([new FormControl(null)]);
 
-    this.languages = new FormArray([this.fb.group({
-      language: this.fb.control(null),
-      level: this.fb.control(null)
-    })]);
+    this.languages = new FormArray([
+      this.fb.group({
+        language: this.fb.control(null),
+        level: this.fb.control(null),
+      }),
+    ]);
 
     this.location = this.fb.group({
       city: this.city,
-      country: this.country
+      country: this.country,
     });
 
     this.userForm = this.fb.group({
@@ -72,7 +84,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
       age: this.age,
       location: this.location,
       hobbies: this.hobbies,
-      languages: this.languages
+      languages: this.languages,
     });
 
     if (this.student) {
@@ -89,6 +101,18 @@ export class UserFormComponent implements OnInit, OnDestroy {
     this.hobbies.controls.splice(i, 1);
   }
 
+  addLanguage(language?: LanguageExpertise): void {
+    const languageGroup = this.fb.group({
+      language: this.fb.control(language ? language.language : null),
+      level: this.fb.control(language ? language.level : null),
+    });
+    this.languages.push(languageGroup);
+  }
+
+  deleteLanguage(index: number): void {
+    this.languages.removeAt(index);
+  }
+
   patchFormValues(): void {
     this.userForm.patchValue({
       name: this.student.name,
@@ -96,37 +120,71 @@ export class UserFormComponent implements OnInit, OnDestroy {
       age: this.student.age,
       location: {
         city: this.student.location?.city,
-        country: this.student.location?.country
-      }
+        country: this.student.location?.country,
+      },
     });
 
-    if (this.student.hobbies.length > 0)
+    if (this.student.hobbies.length > 0) {
       this.patchHobbiesValues();
+    }
+
+    if (this.student.languages.length > 0) {
+      this.patchLanguageValues();
+    }
   }
 
   patchHobbiesValues(): void {
     for (let i = 0; i < this.student.hobbies.length; i++) {
       if (i === 0) {
-        this.hobbies.controls.at(0)?.setValue(this.student.hobbies[i])
+        this.hobbies.controls.at(0)?.setValue(this.student.hobbies[i]);
       } else {
         this.addHobby(this.student.hobbies[i]);
       }
     }
   }
 
+  patchLanguageValues(): void {
+    for (let i = 0; i < this.student.languages.length; i++) {
+      if (i === 0) {
+        this.languages.controls.at(0)?.patchValue(this.student.languages[i]);
+      } else {
+        this.addLanguage(this.student.languages[i]);
+      }
+    }
+  }
+
   resetForm() {
-    this.userForm.reset(this.student);
+    if (this.studentId) {
+      this.buildForm();
+    } else {
+      this.userForm.reset();
+    }
   }
 
   onSubmit() {
     let newStudent = new Student(this.userForm.value);
-    let newLocation = new Locations({ country: this.country.value });
+    let newLocation = new Locations({
+      city: this.city.value,
+      country: this.country.value,
+    });
     newStudent.location = newLocation;
 
     if (this.studentId) {
-      this.usersService.updateStudent(this.studentId, newStudent).pipe(take(1)).subscribe(res => console.log("Studente aggiornato", res));
+      this.usersService
+        .updateStudent(this.studentId, newStudent)
+        .pipe(take(1))
+        .subscribe((res) => {
+          console.log('Studente aggiornato', res);
+          this.router.navigate(['/users']);
+        });
     } else {
-      this.usersService.addStudent(newStudent).pipe(take(1)).subscribe(res => console.log("Studente aggiunto", res));
+      this.usersService
+        .addStudent(newStudent)
+        .pipe(take(1))
+        .subscribe((res) => {
+          console.log('Studente aggiunto', res);
+          this.router.navigate(['/users']);
+        });
     }
   }
 
@@ -137,5 +195,4 @@ export class UserFormComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     localStorage.removeItem('studentId');
   }
-
 }

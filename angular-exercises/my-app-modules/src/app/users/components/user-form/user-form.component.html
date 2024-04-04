@@ -6,6 +6,8 @@
     <div>
       <label for="name">Name</label>
       <input id="name" type="text" formControlName="name" />
+      <p *ngIf="name.hasError('required')">Campo obbligatorio</p>
+      <p *ngIf="name.hasError('whiteSpace')">Campo invalido</p>
     </div>
   
     <div>

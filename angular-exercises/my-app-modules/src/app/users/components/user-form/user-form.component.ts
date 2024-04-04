@@ -3,6 +3,8 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { UsersService } from '../../services/users.service';
 import { LanguageExpertise, Locations, Student } from '../../models/student';
 import { take } from 'rxjs';
+import { noWhiteSpaceValidator } from '../../../core/functions/validators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-form',
@@ -27,16 +29,18 @@ export class UserFormComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb:FormBuilder,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    // Ricavare dati da passaggio di rotta (vedi user-list.component.ts)
+    // this.student = new Student(history.state.data);
     this.studentId = localStorage.getItem('studentId');
     if (this.studentId) {
       this.usersService.getStudentById(this.studentId).pipe(take(1))
         .subscribe((student) => {
           this.student = new Student(student);
-          console.log(this.student);
           this.buildForm();
           this.showForm = true;
         })
@@ -47,12 +51,12 @@ export class UserFormComponent implements OnInit, OnDestroy {
   }
 
   buildForm(): void {
-    this.name = new FormControl(null, Validators.required);
-    this.surname = new FormControl(null, Validators.required);
-    this.age = new FormControl(null, [Validators.required, Validators.min(13)]);
+    this.name = new FormControl(null, [Validators.required, noWhiteSpaceValidator]);
+    this.surname = new FormControl(null);
+    this.age = new FormControl(null, [Validators.min(13)]);
 
     this.city = new FormControl(null);
-    this.country = new FormControl(null, Validators.required);
+    this.country = new FormControl(null);
 
     this.hobbies = new FormArray([new FormControl(null)]);
 
@@ -197,10 +201,8 @@ export class UserFormComponent implements OnInit, OnDestroy {
     this.userForm.reset(this.student);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     let newStudent = new Student(this.userForm.value);
-    let newLocation = new Locations({ country: this.country.value });
-    newStudent.location = newLocation;
 
     if (this.studentId) {
       this.usersService.updateStudent(this.studentId, newStudent).pipe(take(1)).subscribe(res => console.log("Studente aggiornato", res));

@@ -1,6 +1,17 @@
 <h2>Students</h2>
 
 <div *ngFor="let student of students$ | async" class="user-item">
+
+  <!-- Programmazione reattiva > Pattern Observer
+
+  Observable > Oggetto osservabile (flusso di dati) > cambia stato (emissione) > operatore .pipe()
+  Observer > Osserva l'osservabile > registra notifiche di cambiamento > aggiungere notifica in maniera manuale
+
+  subscription = observable.subscribe((contenutoObservablePostPipe) => fare codice)
+
+  Subject > osservabile con osservatore (legame tra observable e observer)
+
+  subject.value => contenuto dell'observable dentro il subject registrato nell'observer del subject -->
   
   <button type="button" class="fancy-button"
     (click)="deleteStudent(student.id!)"

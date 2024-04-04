@@ -14,7 +14,7 @@ export class Student {
   surname: string;
   location: Locations | null;
   age: number | null;
-  hobby: Array<string>;
+  hobbies: Array<string>;
   languages: Array<string>;
 
   constructor(stu: Partial<Student>) {
@@ -23,7 +23,7 @@ export class Student {
     this.surname = stu.surname ? stu.surname : '';
     this.location = stu.location ? new Locations(stu.location) : null;
     this.age = stu.age ? stu.age : null;
-    this.hobby = stu.hobby ? stu.hobby : [];
+    this.hobbies = stu.hobbies ? stu.hobbies : [];
     this.languages = stu.languages ? stu.languages : [];
   }
 }

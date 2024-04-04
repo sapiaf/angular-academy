@@ -18,8 +18,10 @@ export class UserFormComponent implements OnInit, OnDestroy {
   userForm!: FormGroup;
   name!: FormControl;
   surname!: FormControl;
-  age!: FormControl;
+  location!: FormGroup;
+  city!: FormControl;
   country!: FormControl;
+  age!: FormControl;
 
   constructor(
     private fb:FormBuilder,
@@ -32,26 +34,50 @@ export class UserFormComponent implements OnInit, OnDestroy {
       this.usersService.getStudentById(this.studentId).pipe(take(1))
         .subscribe((student) => {
           this.student = new Student(student);
+          this.buildForm();
           this.showForm = true;
-          this.buildForm(student);
         })
     } else {
-      this.showForm = true;
       this.buildForm();
+      this.showForm = true;
     }
   }
 
-  buildForm(student?: Student): void {
-    this.name = new FormControl(student ? this.student?.name : '', Validators.required);
-    this.surname = new FormControl(student ? this.student?.surname : '', Validators.required);
-    this.age = new FormControl(student ? this.student?.age : '', [Validators.required, Validators.min(1)]);
-    this.country = new FormControl(student ? this.student?.location?.country : '', Validators.required);
+  buildForm(): void {
+    this.name = new FormControl(null, Validators.required);
+    this.surname = new FormControl(null, Validators.required);
+    this.age = new FormControl(null, [Validators.required, Validators.min(13)]);
+
+    this.city = new FormControl(null);
+    this.country = new FormControl(null, Validators.required);
+
+    this.location = this.fb.group({
+      city: this.city,
+      country: this.country
+    });
 
     this.userForm = this.fb.group({
       name: this.name,
       surname: this.surname,
+      location: this.location,
       age: this.age,
       country: this.country
+    });
+
+    if (this.student) {
+      this.patchFormValues();
+    }
+  }
+
+  patchFormValues(): void {
+    this.userForm.patchValue({
+      name: this.student.name,
+      surname: this.student.surname,
+      age: this.student.age,
+      location: {
+        city: this.student.location?.city,
+        country: this.student.location?.country
+      }
     });
   }
 
@@ -69,6 +95,10 @@ export class UserFormComponent implements OnInit, OnDestroy {
     } else {
       this.usersService.addStudent(newStudent).pipe(take(1)).subscribe(res => console.log("Studente aggiunto", res));
     }
+  }
+
+  checkFormStatus(): void {
+    console.log(this.userForm);
   }
 
   ngOnDestroy(): void {

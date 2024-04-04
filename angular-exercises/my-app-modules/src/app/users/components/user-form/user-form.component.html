@@ -1,4 +1,4 @@
-<h2>Add Student</h2>
+<h2>{{ student ? 'Edit' : 'Add' }} Student</h2>
 
 <ng-container *ngIf="showForm">
   <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
@@ -18,9 +18,16 @@
       <input id="age" type="number" formControlName="age" />
     </div>
   
-    <div>
+    <div formGroupName="location">
+
+      <h3>Location</h3>
+
+      <label for="city">City</label>
+      <input id="city" type="text" formControlName="city" />
+
       <label for="country">Country</label>
       <input id="country" type="text" formControlName="country" />
+
     </div>
   
     <button class="button" type="button" (click)="resetForm()">
@@ -29,6 +36,10 @@
     
     <button class="button" type="submit" [disabled]="userForm.invalid">
       {{ student ? 'Edit' : 'Add' }}
+    </button>
+
+    <button class="button" type="button" (click)="checkFormStatus()">
+      Check Form
     </button>
   </form>
 </ng-container>

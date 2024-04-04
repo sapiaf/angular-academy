@@ -55,15 +55,20 @@ export class UserListComponent implements OnInit, OnDestroy{
 
   deleteStudent(id: string) {
     this.usersService.deleteStudent(id).pipe(takeUntil(this.destroy$))
-      .subscribe((res) => {
-        this.loadStudentsList();
-        this.destroy$.next();
-        this.destroy$.complete();
-      });
+      .subscribe({
+        next: (res) => {
+          this.loadStudentsList();
+          this.destroy$.next();
+          this.destroy$.complete();
+        },
+        error: (error) => { console.log("Studente non trovato"); },
+        complete: () => { console.log("Emissione della subscription completata") }
+    });
   }
 
   goToEditStudent(id: string): void {
     localStorage.setItem('studentId', id);
+    // this.usersService.idStudentToEdit = id;
     this.router.navigate(['/users/form']);
   }
 

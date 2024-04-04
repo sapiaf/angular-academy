@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UsersService } from '../../services/users.service';
 import { Locations, Student } from '../../models/student';
 import { take } from 'rxjs';
@@ -22,6 +22,8 @@ export class UserFormComponent implements OnInit, OnDestroy {
   city!: FormControl;
   country!: FormControl;
   age!: FormControl;
+  hobbies!: FormArray;
+  languages!: FormArray;
 
   constructor(
     private fb:FormBuilder,
@@ -34,6 +36,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
       this.usersService.getStudentById(this.studentId).pipe(take(1))
         .subscribe((student) => {
           this.student = new Student(student);
+          console.log(this.student);
           this.buildForm();
           this.showForm = true;
         })
@@ -51,6 +54,13 @@ export class UserFormComponent implements OnInit, OnDestroy {
     this.city = new FormControl(null);
     this.country = new FormControl(null, Validators.required);
 
+    this.hobbies = new FormArray([new FormControl(null)]);
+
+    this.languages = new FormArray([this.fb.group({
+      language: this.fb.control(null),
+      level: this.fb.control(null)
+    })]);
+
     this.location = this.fb.group({
       city: this.city,
       country: this.country
@@ -59,14 +69,24 @@ export class UserFormComponent implements OnInit, OnDestroy {
     this.userForm = this.fb.group({
       name: this.name,
       surname: this.surname,
-      location: this.location,
       age: this.age,
-      country: this.country
+      location: this.location,
+      hobbies: this.hobbies,
+      languages: this.languages
     });
 
     if (this.student) {
       this.patchFormValues();
     }
+  }
+
+  addHobby(hobby?: string): void {
+    this.hobbies.push(this.fb.control(hobby ? hobby : null));
+  }
+
+  deleteHobby(i: number): void {
+    console.log(this.hobbies);
+    this.hobbies.controls.splice(i, 1);
   }
 
   patchFormValues(): void {
@@ -79,6 +99,19 @@ export class UserFormComponent implements OnInit, OnDestroy {
         country: this.student.location?.country
       }
     });
+
+    if (this.student.hobbies.length > 0)
+      this.patchHobbiesValues();
+  }
+
+  patchHobbiesValues(): void {
+    for (let i = 0; i < this.student.hobbies.length; i++) {
+      if (i === 0) {
+        this.hobbies.controls.at(0)?.setValue(this.student.hobbies[i])
+      } else {
+        this.addHobby(this.student.hobbies[i]);
+      }
+    }
   }
 
   resetForm() {

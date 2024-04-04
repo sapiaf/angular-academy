@@ -29,6 +29,46 @@
       <input id="country" type="text" formControlName="country" />
 
     </div>
+
+    <div formArrayName="hobbies">
+
+      <h3>Hobbies</h3>
+
+      <button type="button" (click)="addHobby()">+ Hobby</button>
+
+      <div *ngFor="let hobby of hobbies.controls; let i = index">
+
+        <label [for]="'hobby-' + i">
+          <button type="button" class="fancy-button" (click)="deleteHobby(i)">
+            <span class="material-symbols-outlined">
+              delete
+            </span>
+          </button>
+          Hobby
+        </label>
+        <input id="hobby-{{ i }}" type="text" [formControlName]="i">
+
+      </div>
+
+    </div>
+
+    <div formArrayName="languages">
+
+      <h3>Languages</h3>
+
+      <button type="button">+ Language</button>
+
+      <div *ngFor="let language of languages.controls; let i = index" [formGroupName]="i">
+
+        <label for="language-{{ i }}">Language</label>
+        <input id="language-{{ i }}" type="text" formControlName="language">
+
+        <label for="level-{{ i }}">Level</label>
+        <input id="level-{{ i }}" type="text" formControlName="level">
+
+      </div>
+
+    </div>
   
     <button class="button" type="button" (click)="resetForm()">
       Reset

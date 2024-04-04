@@ -54,17 +54,17 @@ export class UsersService {
       }));
   }
 
-  getStudentByLanguage(lang: string): Observable<Array<Student>> {
-    return this.http.get<Array<Student>>(`${this.apiUrl}/students`)
-      .pipe(map((students) => {
-        const ListStudentsSameLanguage: Array<Student> = []
-        students.forEach((s) => {
-          if (s.languages.includes(lang))
-            ListStudentsSameLanguage.push(s);
-        });
-        return ListStudentsSameLanguage;
-    }));
-  }
+  // getStudentByLanguage(lang: string): Observable<Array<Student>> {
+  //   return this.http.get<Array<Student>>(`${this.apiUrl}/students`)
+  //     .pipe(map((students) => {
+  //       const ListStudentsSameLanguage: Array<Student> = []
+  //       students.forEach((s) => {
+  //         if (s.languages.includes(lang))
+  //           ListStudentsSameLanguage.push(s);
+  //       });
+  //       return ListStudentsSameLanguage;
+  //   }));
+  // }
 
   /*
    *  TODO | Esercizio.

@@ -9,13 +9,13 @@
         "country": "Italia"
       },
       "age": 18,
-      "hobby": [
+      "hobbies": [
         "nuoto",
         "ippica"
       ],
       "languages": [
-        "italiano",
-        "inglese"
+        { "language": "italiano", "level": "A2" },
+        { "language": "inglese", "level": "A2" }
       ]
     },
     {
@@ -27,14 +27,14 @@
         "country": "Polonia"
       },
       "age": 28,
-      "hobby": [
+      "hobbies": [
         "corsa",
         "ippica"
       ],
       "languages": [
-        "italiano",
-        "inglese",
-        "polacco"
+        { "language": "italiano", "level": "A2" },
+        { "language": "inglese", "level": "A2" },
+        { "language": "polacco", "level": "A2" }
       ]
     },
     {
@@ -46,13 +46,13 @@
         "country": "Grecia"
       },
       "age": 41,
-      "hobby": [
+      "hobbies": [
         "cucina",
         "nuoto"
       ],
       "languages": [
-        "greco",
-        "inglese"
+        { "language": "greco", "level": "A2" },
+        { "language": "inglese", "level": "A2" }
       ]
     },
     {
@@ -64,15 +64,15 @@
         "country": "Italia"
       },
       "age": 31,
-      "hobby": [
+      "hobbies": [
         "film",
         "musica",
         "corsa"
       ],
       "languages": [
-        "italiano",
-        "francese",
-        "tedesco"
+        { "language": "italiano", "level": "A2" },
+        { "language": "francese", "level": "A2" },
+        { "language": "tedesco", "level": "A2" }
       ]
     },
     {
@@ -84,13 +84,13 @@
         "country": "Stati Uniti d'America"
       },
       "age": 41,
-      "hobby": [
+      "hobbies": [
         "cucina",
         "nuoto"
       ],
       "languages": [
-        "greco",
-        "inglese"
+        { "language": "greco", "level": "A2" },
+        { "language": "inglese", "level": "A2" }
       ]
     }
   ]

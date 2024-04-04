@@ -56,9 +56,15 @@
 
       <h3>Languages</h3>
 
-      <button type="button">+ Language</button>
+      <button type="button" (click)="addLanguage()">+ Language</button>
 
       <div *ngFor="let language of languages.controls; let i = index" [formGroupName]="i">
+
+        <button type="button" class="fancy-button" (click)="deleteLanguage(i)">
+          <span class="material-symbols-outlined">
+            delete
+          </span>
+        </button>
 
         <label for="language-{{ i }}">Language</label>
         <input id="language-{{ i }}" type="text" formControlName="language">

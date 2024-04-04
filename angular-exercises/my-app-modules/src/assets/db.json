@@ -14,8 +14,14 @@
         "ippica"
       ],
       "languages": [
-        { "language": "italiano", "level": "A2" },
-        { "language": "inglese", "level": "A2" }
+        {
+          "language": "italiano",
+          "level": "A2"
+        },
+        {
+          "language": "inglese",
+          "level": "A2"
+        }
       ]
     },
     {
@@ -32,9 +38,18 @@
         "ippica"
       ],
       "languages": [
-        { "language": "italiano", "level": "A2" },
-        { "language": "inglese", "level": "A2" },
-        { "language": "polacco", "level": "A2" }
+        {
+          "language": "italiano",
+          "level": "A2"
+        },
+        {
+          "language": "inglese",
+          "level": "A2"
+        },
+        {
+          "language": "polacco",
+          "level": "A2"
+        }
       ]
     },
     {
@@ -51,8 +66,14 @@
         "nuoto"
       ],
       "languages": [
-        { "language": "greco", "level": "A2" },
-        { "language": "inglese", "level": "A2" }
+        {
+          "language": "greco",
+          "level": "A2"
+        },
+        {
+          "language": "inglese",
+          "level": "A2"
+        }
       ]
     },
     {
@@ -70,9 +91,18 @@
         "corsa"
       ],
       "languages": [
-        { "language": "italiano", "level": "A2" },
-        { "language": "francese", "level": "A2" },
-        { "language": "tedesco", "level": "A2" }
+        {
+          "language": "italiano",
+          "level": "A2"
+        },
+        {
+          "language": "francese",
+          "level": "A2"
+        },
+        {
+          "language": "tedesco",
+          "level": "A2"
+        }
       ]
     },
     {
@@ -89,8 +119,14 @@
         "nuoto"
       ],
       "languages": [
-        { "language": "greco", "level": "A2" },
-        { "language": "inglese", "level": "A2" }
+        {
+          "language": "greco",
+          "level": "A2"
+        },
+        {
+          "language": "inglese",
+          "level": "A2"
+        }
       ]
     }
   ]

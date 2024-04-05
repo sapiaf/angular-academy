@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UsersService } from '../../services/users.service';
-import { LanguageExpertise, Locations, Student } from '../../models/student';
+import { LanguageExpertise, LanguageLevel, Locations, Student } from '../../models/student';
 import { take } from 'rxjs';
 import { noWhiteSpaceValidator } from '../../../core/functions/validators';
 import { Router } from '@angular/router';
+import { LanguageLevels } from '../../constants/levels';
 
 @Component({
   selector: 'app-user-form',
@@ -13,6 +14,7 @@ import { Router } from '@angular/router';
 })
 export class UserFormComponent implements OnInit, OnDestroy {
   showForm: boolean = false;
+  langLevels!: Array<LanguageLevel>;
 
   studentId!: string | null;
   student!: Student;
@@ -48,15 +50,17 @@ export class UserFormComponent implements OnInit, OnDestroy {
       this.buildForm();
       this.showForm = true;
     }
+
+    this.langLevels = LanguageLevels;
   }
 
   buildForm(): void {
     this.name = new FormControl(null, [Validators.required, noWhiteSpaceValidator]);
-    this.surname = new FormControl(null);
-    this.age = new FormControl(null, [Validators.min(13)]);
+    this.surname = new FormControl(null, [Validators.required]);
+    this.age = new FormControl(null, [Validators.required, Validators.min(13)]);
 
     this.city = new FormControl(null);
-    this.country = new FormControl(null);
+    this.country = new FormControl(null, [Validators.required]);
 
     this.hobbies = new FormArray([new FormControl(null)]);
 

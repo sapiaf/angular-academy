@@ -24,6 +24,7 @@ export class UserListComponent implements OnInit, OnDestroy{
   ngOnInit(): void {
     // this.studentsSubscription = this.usersService.getStudent().subscribe();
     // this.students$ = this.usersService.students$;
+    localStorage.removeItem('studentId');
 
     this.loadStudentsList();
   }

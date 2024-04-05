@@ -5,6 +5,10 @@
     <div>
       <label for="name">Name</label>
       <input id="name" type="text" formControlName="name" />
+      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert">
+        <div *ngIf="name.hasError('required')">Name is required</div>
+        <div *ngIf="name.hasError('whiteSpace')">Name invalid</div>
+      </div>
     </div>
 
     <div>
@@ -28,44 +32,82 @@
     </div>
 
     <div formArrayName="hobbies">
-      <h3>Hobbies</h3>
+      <div class="dynamic-form-title">
+        <h3>Hobbies</h3>
+        <button type="button" (click)="addHobby()">+ Hobby</button>
+      </div>
 
-      <button type="button" (click)="addHobby()">+ Hobby</button>
+      <div
+        *ngFor="let hobby of hobbies.controls; let i = index; let last = last"
+      >
+        <div class="dynamic-form-group">
+          <div>
+            <label [for]="'hobby-' + i"> Hobby </label>
+            <input id="hobby-{{ i }}" type="text" [formControlName]="i" />
+          </div>
 
-      <div *ngFor="let hobby of hobbies.controls; let i = index">
-        <label [for]="'hobby-' + i">{{ hobby.value || "Hobby" }}</label>
-        <input id="hobby-{{ i }}" type="text" [formControlName]="i" />
-        <button type="button" class="fancy-button" (click)="deleteHobby(i)">
-          <span class="material-symbols-outlined"> delete </span>
-        </button>
+          <button type="button" class="fancy-button" (click)="deleteHobby(i)">
+            <span class="material-symbols-outlined"> delete </span>
+          </button>
+        </div>
+
+        <hr *ngIf="!last" />
       </div>
     </div>
 
     <div formArrayName="languages">
-      <h3>Languages</h3>
-      <button type="button" (click)="addLanguage()">+ Language</button>
+      <div class="dynamic-form-title">
+        <h3>Languages</h3>
+        <button type="button" (click)="addLanguage()">+ Language</button>
+      </div>
+
       <div
-        *ngFor="let languageGroup of languages.controls; let i = index"
+        *ngFor="
+          let language of languages.controls;
+          let i = index;
+          let last = last
+        "
         [formGroupName]="i"
       >
-        <label for="language-{{ i }}">Language</label>
-        <input id="language-{{ i }}" type="text" formControlName="language" />
-        <label for="level-{{ i }}">Level</label>
-        <input id="level-{{ i }}" type="text" formControlName="level" />
-        <button type="button" class="fancy-button" (click)="deleteLanguage(i)">
-          <span class="material-symbols-outlined"> delete </span>
-        </button>
+        <div class="dynamic-form-group">
+          <div>
+            <label for="language-{{ i }}">Language</label>
+            <input
+              id="language-{{ i }}"
+              type="text"
+              formControlName="language"
+            />
+
+            <label for="level-{{ i }}">Level</label>
+            <select id="level-{{ i }}" formControlName="level">
+              <option value="">Select a Level</option>
+              <option *ngFor="let lvl of langLevels" [ngValue]="lvl">
+                {{ lvl }}
+              </option>
+            </select>
+          </div>
+          <button
+            type="button"
+            class="fancy-button"
+            (click)="deleteLanguage(i)"
+          >
+            <span class="material-symbols-outlined"> delete </span>
+          </button>
+        </div>
+
+        <hr *ngIf="!last" />
       </div>
     </div>
 
-    <button class="button" type="button" (click)="resetForm()">Reset</button>
+    <div class="form-btns">
+      <button class="button" type="button" (click)="resetForm()">Reset</button>
 
-    <button class="button" type="submit" [disabled]="userForm.invalid">
-      {{ student ? "Edit" : "Add" }}
-    </button>
-
-    <button class="button" type="button" (click)="checkFormStatus()">
-      Check Form
-    </button>
+      <button class="button" type="submit" [disabled]="userForm.invalid">
+        {{ student ? "Edit" : "Add" }}
+      </button>
+      <button class="button" type="button" (click)="checkFormStatus()">
+        Check Form
+      </button>
+    </div>
   </form>
 </ng-container>

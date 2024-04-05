@@ -7,9 +7,16 @@ import {
   Validators,
 } from '@angular/forms';
 import { UsersService } from '../../services/users.service';
-import { LanguageExpertise, Locations, Student } from '../../models/student';
+import {
+  LanguageExpertise,
+  LanguageLevel,
+  Locations,
+  Student,
+} from '../../models/student';
 import { take } from 'rxjs';
+import { noWhiteSpaceValidator } from '../../../core/functions/validators';
 import { Router } from '@angular/router';
+import { LanguageLevels } from '../../constants/levels';
 
 @Component({
   selector: 'app-user-form',
@@ -18,6 +25,7 @@ import { Router } from '@angular/router';
 })
 export class UserFormComponent implements OnInit, OnDestroy {
   showForm: boolean = false;
+  langLevels!: Array<LanguageLevel>;
 
   studentId!: string | null;
   student!: Student;
@@ -39,6 +47,8 @@ export class UserFormComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    // Ricavare dati da passaggio di rotta (vedi user-list.component.ts)
+    // this.student = new Student(history.state.data);
     this.studentId = localStorage.getItem('studentId');
     if (this.studentId) {
       this.usersService
@@ -46,7 +56,6 @@ export class UserFormComponent implements OnInit, OnDestroy {
         .pipe(take(1))
         .subscribe((student) => {
           this.student = new Student(student);
-          console.log(this.student);
           this.buildForm();
           this.showForm = true;
         });
@@ -54,15 +63,20 @@ export class UserFormComponent implements OnInit, OnDestroy {
       this.buildForm();
       this.showForm = true;
     }
+
+    this.langLevels = LanguageLevels;
   }
 
   buildForm(): void {
-    this.name = new FormControl(null, Validators.required);
-    this.surname = new FormControl(null, Validators.required);
+    this.name = new FormControl(null, [
+      Validators.required,
+      noWhiteSpaceValidator,
+    ]);
+    this.surname = new FormControl(null, [Validators.required]);
     this.age = new FormControl(null, [Validators.required, Validators.min(13)]);
 
     this.city = new FormControl(null);
-    this.country = new FormControl(null, Validators.required);
+    this.country = new FormControl(null, [Validators.required]);
 
     this.hobbies = new FormArray([new FormControl(null)]);
 
@@ -161,13 +175,8 @@ export class UserFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  onSubmit() {
+  onSubmit(): void {
     let newStudent = new Student(this.userForm.value);
-    let newLocation = new Locations({
-      city: this.city.value,
-      country: this.country.value,
-    });
-    newStudent.location = newLocation;
 
     if (this.studentId) {
       this.usersService

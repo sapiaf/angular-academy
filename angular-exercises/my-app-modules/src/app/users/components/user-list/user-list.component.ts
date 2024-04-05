@@ -24,6 +24,7 @@ export class UserListComponent implements OnInit, OnDestroy{
   ngOnInit(): void {
     // this.studentsSubscription = this.usersService.getStudent().subscribe();
     // this.students$ = this.usersService.students$;
+    localStorage.removeItem('studentId');
 
     this.loadStudentsList();
   }
@@ -66,10 +67,14 @@ export class UserListComponent implements OnInit, OnDestroy{
     });
   }
 
-  goToEditStudent(id: string): void {
-    localStorage.setItem('studentId', id);
-    // this.usersService.idStudentToEdit = id;
+  goToEditStudent(student: Student): void {
+    localStorage.setItem('studentId', student.id);
     this.router.navigate(['/users/form']);
+    
+    // this.usersService.idStudentToEdit = student.id;
+    
+    // Passare oggetto nella rotta
+    // this.router.navigate(['/users/form'], { state: { data: student } });
   }
 
   updateStudent(id:string, student: Partial<Student>) {

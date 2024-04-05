@@ -2,24 +2,28 @@
   "students": [
     {
       "id": "1",
-      "name": "Marino",
+      "name": "Mario",
       "surname": "Rossi",
       "location": {
         "city": "Torino",
         "country": "Italia"
       },
-      "age": 18,
+      "age": 20,
       "hobbies": [
-        "nuoto",
-        "ippica"
+        "calcio",
+        "letteratura"
       ],
       "languages": [
         {
           "language": "italiano",
-          "level": "A2"
+          "level": "C2"
         },
         {
           "language": "inglese",
+          "level": "B1"
+        },
+        {
+          "language": "spagnolo",
           "level": "A2"
         }
       ]
@@ -126,6 +130,25 @@
         {
           "language": "inglese",
           "level": "A2"
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "name": "Pippo",
+      "surname": "Formaggio",
+      "location": {
+        "city": "Paperopoli",
+        "country": "Paperopolonia"
+      },
+      "age": 28,
+      "hobbies": [
+        "calcio"
+      ],
+      "languages": [
+        {
+          "language": "italiano",
+          "level": "C2"
         }
       ]
     }

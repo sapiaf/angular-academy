@@ -1,0 +1,23 @@
+.dynamic-form-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dynamic-form-group {
+  display: flex;
+  align-items: center;
+}
+
+select {
+  width: -webkit-fill-available;
+}
+
+.form-btns {
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    margin: 1rem 0.5rem 1rem 0;
+  }
+}
